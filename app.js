@@ -39,14 +39,15 @@ http.listen(port, function() {
 // all other app.js boilerplate code is still above here
 io.on('connection', function(socket) {
 
-	socket.on('mousedown', function(data) {
-		console.log(data);
-		socket.broadcast.emit('mousedown', data);
-	});
+	// Display this message in the server console
+	console.log('A user connected!');
 
-	socket.on('mousemove', function(data) {
+	// When the server receives a message named "new line",
+	socket.on('new line', function(data){
+		// Display the received data in the server console
 		console.log(data);
-		socket.broadcast.emit('mousemove', data);
+		// Send the data in a message called "new line" to every connected client EXCEPT the client who sent this initial "new line" message
+		socket.broadcast.emit('new line', data);
 	});
 
 });
